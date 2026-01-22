@@ -1,6 +1,7 @@
 # Time Series Analysis of Walmart Sales Data
 
 ## Executive Summary:
+--
 
 ## Business Problem:
 
