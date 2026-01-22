@@ -1,7 +1,7 @@
-# Time Series Analysis of Walmart Sales Data
+# Walmart Weekly Sales Forecasting - Time Series Analysis
 
 ## Executive Summary:
---
+
 
 ## Business Problem:
 
