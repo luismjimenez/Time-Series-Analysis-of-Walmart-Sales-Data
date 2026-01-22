@@ -1,13 +1,13 @@
 # Time Series Analysis of Walmart Sales Data
 
-# Executive Summary:
+## Executive Summary:
 
-# Business Problem:
+## Business Problem:
 
-# Methodology:
+## Methodology:
 
-# Skills:
+## Skills:
 
-# Results & Business Recommendations:
+## Results & Business Recommendations:
 
-# Next Steps:
+## Next Steps:
