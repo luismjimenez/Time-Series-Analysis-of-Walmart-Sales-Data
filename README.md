@@ -6,7 +6,7 @@
 
 # Methodology:
 
-# SKills:
+# Skills:
 
 # Results & Business Recommendations:
 
