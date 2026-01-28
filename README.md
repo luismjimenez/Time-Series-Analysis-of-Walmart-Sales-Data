@@ -23,7 +23,16 @@ Programming & Data Manipulation: Advanced use of Python for data cleaning, prepr
 ## Results & Business Recommendations:
 Key Findings
 Model Performance: The optimized SARIMA model emerged as the superior forecasting tool, successfully identifying quarterly seasonal patterns that simpler models missed.
-The optimized Seasonal AutoRegressive Integrated Moving Average (SARIMA) model was identified as the most effective tool for forecasting Walmart's weekly sales. Its performance highlights include:Superior Pattern Recognition: The model successfully captured quarterly and annual seasonal patterns that simpler models, such as ARIMA and Moving Average, failed to identify.Hyperparameter Optimization: By utilizing a grid search to refine parameters $(p, d, q) \times (P, D, Q, s)$, the model was specifically tuned to the unique 13-week quarterly cycles present in retail data.Validated Accuracy: The model's reliability was confirmed using a 13-week test set, with performance measured through Root Mean Square Error (RMSE) and Mean Absolute Error (MAE).Predictive Power vs. External Factors: While external macroeconomic variables (fuel, unemployment, temperature) only explained 2.5% of sales variance, the SARIMA model provided significantly more value by focusing on the underlying seasonal revenue drivers.Identified Constraints: Despite its accuracy, the model—like others tested—tended to underestimate the extreme "peak-of-peak" demand during major holiday windows like Thanksgiving and Christmas.
+The optimized Seasonal AutoRegressive Integrated Moving Average (SARIMA) model was identified as the most effective tool for forecasting Walmart's weekly sales. 
+Its performance highlights include:
+ Superior Pattern Recognition: The model successfully captured quarterly and annual seasonal patterns that simpler models, such as ARIMA and Moving Average, failed to identify.
+ Hyperparameter Optimization: By utilizing a grid search to refine parameters $(p, d, q) \times (P, D, Q, s)$, the model was specifically tuned to the unique 13-week quarterly cycles   
+ present in retail data.
+ Validated Accuracy: The model's reliability was confirmed using a 13-week test set, with performance measured through Root Mean Square Error (RMSE) and Mean Absolute Error (MAE).
+ Predictive Power vs. External Factors: While external macroeconomic variables (fuel, unemployment, temperature) only explained 2.5% of sales variance, the SARIMA model provided 
+ significantly more value by focusing on the underlying seasonal revenue drivers.
+ Identified Constraints: Despite its accuracy, the model—like others tested—tended to underestimate the extreme "peak-of-peak" demand during major holiday windows like Thanksgiving and 
+ Christmas.
 
 ![SARIMA Performance](sarima_performance.png)
 *Figure 1: SARIMA Forecast vs. Actual Sales*
@@ -47,7 +56,11 @@ Store-Specific Buffering: Prioritize safety stock for high-volatility locations 
 Quarterly Planning Cycles: Utilize SARIMA-based forecasts for mid-term (13-week) labor and inventory planning to align with established quarterly seasonal cycles.
 
 ## Next Steps:
-Integrate Store-Specific Multipliers: Expand the "Holiday Overlay" logic to include the top 5 most volatile stores (Stores 20, 4, 14, 13, and 2), applying customized multipliers to account for their higher-than-average seasonal spikes.
-Feature Engineering for Promotional Data: Incorporate internal Walmart promotional calendars (Markdowns) into the SARIMA model as exogenous variables ($SARIMAX$) to see if it improves accuracy during extreme holiday windows.
-Deployment of Automated Alerts: Develop a monitoring script that flags significant deviations between the SARIMA forecast and actual sales in real-time, allowing for rapid inventory adjustments.
-Long-Term Demand Planning: Use the model to run "what-if" scenarios regarding future labor requirements based on predicted seasonal volume surges across different store tiers.Periodic Model Retraining: Establish a quarterly retraining schedule to ensure the SARIMA parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
+- Integrate Store-Specific Multipliers: Expand the "Holiday Overlay" logic to include the top 5 most volatile stores (Stores 20, 4, 14, 13, and 2), applying customized multipliers to
+  account for their higher-than-average seasonal spikes.
+- Feature Engineering for Promotional Data: Incorporate internal Walmart promotional calendars (Markdowns) into the SARIMA model as exogenous variables ($SARIMAX$) to see if it improves
+  accuracy during extreme holiday windows.
+- Deployment of Automated Alerts: Develop a monitoring script that flags significant deviations between the SARIMA forecast and actual sales in real-time, allowing for rapid inventory
+  adjustments.
+- Long-Term Demand Planning: Use the model to run "what-if" scenarios regarding future labor requirements based on predicted seasonal volume surges across different store tiers.
+- Periodic Model Retraining: Establish a quarterly retraining schedule to ensure the SARIMA parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
