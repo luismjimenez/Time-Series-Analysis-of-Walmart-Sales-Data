@@ -21,11 +21,15 @@ The technical approach for this analysis followed a structured pipeline from exp
 - Model Evaluation: All models were validated using a 13-week test set, with accuracy measured primarily through RMSE (Root Mean Square Error) and MAE (Mean Absolute Error).
 
 ## Skills:
-Programming & Data Manipulation: Advanced use of Python for data cleaning, preprocessing, and exploratory data analysis (EDA).Time-Series Modeling: Implementation of diverse forecasting architectures including ARIMA, SARIMA, and Prophet to capture complex seasonality and trends.Statistical Analysis: Utilization of Statsmodels for rigorous statistical testing and Scikit-learn for model evaluation metrics like RMSE and MAE.Hyperparameter Optimization: Expertise in performing Grid Search to tune model parameters $(p, d, q) \times (P, D, Q, s)$ for maximum predictive accuracy.Business Intelligence & Strategy: Translating complex data findings into actionable insights, such as Holiday Overlays and store-specific inventory buffering.Data Visualization: (Implicitly used) for identifying the negligible impact of macroeconomic variables ($R^2 \approx 2.5\%$) and visualizing seasonal revenue surges.
+- Programming & Data Manipulation: Advanced use of Python for data cleaning, preprocessing, and exploratory data analysis (EDA).
+- Time-Series Modeling: Implementation of diverse forecasting architectures, including ARIMA, SARIMA, Prophet, and XGBoost, to capture complex seasonality and trends.
+- Statistical Analysis: Utilization of Statsmodels for rigorous statistical testing and Scikit-learn for model evaluation metrics like RMSE and MAE.
+- Hyperparameter Optimization: Expertise in performing Grid Search to tune model parameters $(p, d, q) \times (P, D, Q, s)$ for maximum predictive accuracy.
+- Business Intelligence & Strategy: Translating complex data findings into actionable insights, such as Holiday Overlays and store-specific inventory buffering.
+- Data Visualization: Use of Matplotlib to visualize insights.
 
-## Results & Business Recommendations:
+## Results:
 
-Key Findings
 1. **Weekly sales show strong seasonality**, with major spikes around Thanksgiving and Christmas.
 2. **Holiday weeks boost sales by ~7–8%**, making them the most influential external factor.
 3. Economic variables like temperature, CPI, fuel price, and unemployment show **weak correlation** and explain **<3%** of variance.
@@ -37,35 +41,34 @@ Key Findings
 9. Forecast accuracy can be improved by **adding custom holiday effects** and using **store-level hierarchical models**.
 10. Future work should explore hyperparameter tuning for XGBoost, integrate additional external factors, consider ensemble techniques, investigate deep learning models such as LSTMs or Transformers, and build a **production-ready forecasting pipeline**.
 
-Model Performance: The more advanced XGBoost model outperformed the other models, successfully capturing quarterly seasonal patterns that simpler models missed.
+**Model Performance:** The more advanced XGBoost model outperformed the other models, successfully capturing quarterly seasonal patterns that simpler models missed.
 
 ![Model Performance](Walmart_Sales_Forecast_Model_Performance.png)
 *Figure 1: XGBoost Forecast vs. other models*
 
 ![Macroeconomic Variance Impact](walmart_sales_variance_impact.png)
-*Figure 2: Impact of External Factors on Revenue*
 
-Macroeconomic Impact: Factors such as fuel prices and unemployment rates accounted for only 2.5% of sales variance, indicating they are not primary drivers of consumer demand in this dataset.
+**Macroeconomic Impact:** Factors such as fuel prices and unemployment rates accounted for only 2.5% of sales variance, indicating they are not primary drivers of consumer demand in this dataset.
 
-Holiday Surge: Specific holiday events drive an average revenue lift of 7.84%, with the largest spikes occurring during Thanksgiving and Christmas.
+**Holiday Surge:** Specific holiday events drive an average revenue lift of 7.84%, with the largest spikes occurring during Thanksgiving and Christmas.
 
-Forecasting Limits: While time-series models capture general seasonality, they consistently underestimate the "peak-of-peak" demand during major holidays.
+**Forecasting Limits:** While time-series models capture general seasonality, they consistently underestimate the "peak-of-peak" demand during major holidays.
 
-Business Recommendations
-Shift Strategic Focus: Transition resources from monitoring external macroeconomic indicators toward optimizing internal promotional and seasonal event calendars.
+## Business Recommendations:
 
-Apply Holiday Multipliers: Implement a manual "Holiday Overlay" (a percentage-based multiplier) to model Q4 forecasts and prevent inventory stockouts.
+**Shift Strategic Focus:** Transition resources from monitoring external macroeconomic indicators toward optimizing internal promotional and seasonal event calendars.
 
-Store-Specific Buffering: Prioritize safety stock for high-volatility locations (e.g., Store 20), which exhibit larger-than-average absolute dollar spikes during peak periods.
+**Apply Holiday Multipliers:** Implement a manual "Holiday Overlay" (a percentage-based multiplier) to model Q4 forecasts and prevent inventory stockouts.
 
-Quarterly Planning Cycles: Utilize SARIMA-based forecasts for mid-term (13-week) labor and inventory planning to align with established quarterly seasonal cycles.
+**Store-Specific Buffering:** Prioritize safety stock for high-volatility locations (e.g., Store 20), which exhibit larger-than-average absolute dollar spikes during peak periods.
+
+**Quarterly Planning Cycles:** Utilize forecasts for mid-term (13-week) labor and inventory planning to align with established quarterly seasonal cycles.
 
 ## Next Steps:
 - Integrate Store-Specific Multipliers: Expand the "Holiday Overlay" logic to include the top 5 most volatile stores (Stores 20, 4, 14, 13, and 2), applying customized multipliers to
   account for their higher-than-average seasonal spikes.
-- Feature Engineering for Promotional Data: Incorporate internal Walmart promotional calendars (Markdowns) into the SARIMA model as exogenous variables ($SARIMAX$) to see if it improves
-  accuracy during extreme holiday windows.
-- Deployment of Automated Alerts: Develop a monitoring script that flags significant deviations between the SARIMA forecast and actual sales in real-time, allowing for rapid inventory
+- Feature Engineering for Promotional Data: Incorporate internal Walmart promotional calendars (Markdowns) into the model to see if it improves accuracy during extreme holiday windows.
+- Deployment of Automated Alerts: Develop a monitoring script that flags significant deviations between the forecast and actual sales in real-time, allowing for rapid inventory
   adjustments.
 - Long-Term Demand Planning: Use the model to run "what-if" scenarios regarding future labor requirements based on predicted seasonal volume surges across different store tiers.
-- Periodic Model Retraining: Establish a quarterly retraining schedule to ensure the SARIMA parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
+- Periodic Model Retraining: Establish a quarterly retraining schedule to ensure the parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
