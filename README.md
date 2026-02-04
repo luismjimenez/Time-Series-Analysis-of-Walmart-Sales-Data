@@ -24,37 +24,39 @@ The technical approach for this analysis followed a structured pipeline from exp
 Programming & Data Manipulation: Advanced use of Python for data cleaning, preprocessing, and exploratory data analysis (EDA).Time-Series Modeling: Implementation of diverse forecasting architectures including ARIMA, SARIMA, and Prophet to capture complex seasonality and trends.Statistical Analysis: Utilization of Statsmodels for rigorous statistical testing and Scikit-learn for model evaluation metrics like RMSE and MAE.Hyperparameter Optimization: Expertise in performing Grid Search to tune model parameters $(p, d, q) \times (P, D, Q, s)$ for maximum predictive accuracy.Business Intelligence & Strategy: Translating complex data findings into actionable insights, such as Holiday Overlays and store-specific inventory buffering.Data Visualization: (Implicitly used) for identifying the negligible impact of macroeconomic variables ($R^2 \approx 2.5\%$) and visualizing seasonal revenue surges.
 
 ## Results & Business Recommendations:
+
 Key Findings
-Model Performance: The optimized SARIMA model emerged as the superior forecasting tool, successfully identifying quarterly seasonal patterns that simpler models missed.
-The optimized Seasonal AutoRegressive Integrated Moving Average (SARIMA) model was identified as the most effective tool for forecasting Walmart's weekly sales. 
-Its performance highlights include:
- Superior Pattern Recognition: The model successfully captured quarterly and annual seasonal patterns that simpler models, such as ARIMA and Moving Average, failed to identify.
- Hyperparameter Optimization: By utilizing a grid search to refine parameters $(p, d, q) \times (P, D, Q, s)$, the model was specifically tuned to the unique 13-week quarterly cycles   
- present in retail data.
- Validated Accuracy: The model's reliability was confirmed using a 13-week test set, with performance measured through Root Mean Square Error (RMSE) and Mean Absolute Error (MAE).
- Predictive Power vs. External Factors: While external macroeconomic variables (fuel, unemployment, temperature) only explained 2.5% of sales variance, the SARIMA model provided 
- significantly more value by focusing on the underlying seasonal revenue drivers.
- Identified Constraints: Despite its accuracy, the model—like others tested—tended to underestimate the extreme "peak-of-peak" demand during major holiday windows like Thanksgiving and 
- Christmas.
+1. **Weekly sales show strong seasonality**, with major spikes around Thanksgiving and Christmas.
+2. **Holiday weeks boost sales by ~7–8%**, making them the most influential external factor.
+3. Economic variables like temperature, CPI, fuel price, and unemployment show **weak correlation** and explain **<3%** of variance.
+4. A few stores generate **disproportionately high revenue**, while high-sales stores also show **higher volatility**.
+5. The aggregated time series is **stationary** but highly seasonal, confirmed by decomposition and ADF tests.
+6. **XGBoost delivers the best forecast accuracy (MAPE ~1.76%)**, outperforming Prophet, ARIMA, SARIMA, and the Moving Average baseline.
+7. **SARIMA captures seasonality better than ARIMA**, but both models struggle with extreme holiday spikes.
+8. Simple averages (MA(4)) provide a reasonable baseline but **fail to capture seasonal patterns** and spikes.
+9. Forecast accuracy can be improved by **adding custom holiday effects** and using **store-level hierarchical models**.
+10. Future work should explore hyperparameter tuning for XGBoost, integrate additional external factors, consider ensemble techniques, investigate deep learning models such as LSTMs or Transformers, and build a **production-ready forecasting pipeline**.
+
+Model Performance: The more advanced XGBoost model outperformed the other models, successfully capturing quarterly seasonal patterns that simpler models missed.
 
 ![Model Performance](Walmart_Sales_Forecast_Model_Performance.png)
-*Figure 1: SARIMA Forecast vs. Actual Sales*
+*Figure 1: XGBoost Forecast vs. other models*
 
-![Macroeconomic Variance Impact](variance_impact.png)
+![Macroeconomic Variance Impact](walmart_sales_variance_impact.png)
 *Figure 2: Impact of External Factors on Revenue*
 
 Macroeconomic Impact: Factors such as fuel prices and unemployment rates accounted for only 2.5% of sales variance, indicating they are not primary drivers of consumer demand in this dataset.
 
-Holiday Surge: Specific holiday events trigger an average revenue lift of 7.84%, with the most significant spikes occurring during Thanksgiving and Christmas.
+Holiday Surge: Specific holiday events drive an average revenue lift of 7.84%, with the largest spikes occurring during Thanksgiving and Christmas.
 
 Forecasting Limits: While time-series models capture general seasonality, they consistently underestimate the "peak-of-peak" demand during major holidays.
 
 Business Recommendations
 Shift Strategic Focus: Transition resources from monitoring external macroeconomic indicators toward optimizing internal promotional and seasonal event calendars.
 
-Apply Holiday Multipliers: Implement a manual "Holiday Overlay" (a percentage-based multiplier) to model forecasts during Q4 to prevent inventory stockouts.
+Apply Holiday Multipliers: Implement a manual "Holiday Overlay" (a percentage-based multiplier) to model Q4 forecasts and prevent inventory stockouts.
 
-Store-Specific Buffering: Prioritize safety stock for high-volatility locations (e.g., Store 20), as these stores exhibit larger-than-average absolute dollar spikes during peak periods.
+Store-Specific Buffering: Prioritize safety stock for high-volatility locations (e.g., Store 20), which exhibit larger-than-average absolute dollar spikes during peak periods.
 
 Quarterly Planning Cycles: Utilize SARIMA-based forecasts for mid-term (13-week) labor and inventory planning to align with established quarterly seasonal cycles.
 
