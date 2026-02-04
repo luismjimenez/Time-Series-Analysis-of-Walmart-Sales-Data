@@ -1,14 +1,14 @@
 # Walmart Weekly Sales Forecasting - Time Series Analysis
 
 ## Executive Summary:
-This analysis provides a comprehensive time-series evaluation of Walmart’s weekly sales data across 45 stores to identify key revenue drivers and optimize forecasting accuracy. The investigation reveals that while external factors, such as temperature, fuel prices, and unemployment rates, yield surprisingly low predictive power ($R^2 \approx 2.5\%$), sales are heavily dictated by seasonal cycles and holiday events, which generate an average revenue boost of 7.84%.
-To address these fluctuations, several models were tested: a baseline Moving Average, ARIMA, Prophet, and an optimized SARIMA model. 
-The Prophet model proved most effective at capturing quarterly seasonality, though all models struggled to fully account for extreme holiday peaks. These findings suggest that future forecasting efforts should prioritize internal promotional calendars and store-specific seasonal trends over macroeconomic indicators to achieve greater precision in inventory and labor planning.
+This analysis provides a comprehensive time-series evaluation of Walmart’s weekly sales data across 45 stores to identify key revenue drivers and optimize forecasting accuracy. The investigation reveals that while external factors, such as temperature, fuel prices, and unemployment rates, yield surprisingly low predictive power ($R^2 \approx 2.5\%$), sales are strongly driven by seasonal cycles and holiday events, which generate an average revenue increase of 7.84%.
+To address these fluctuations, several models were tested: a baseline Moving Average, ARIMA, an optimized SARIMA model, Prophet, and an advanced XGBoost model. 
+The XGBoost model proved most effective at capturing trend and seasonality, though all models struggled to fully account for extreme holiday peaks. These findings suggest that future forecasting efforts should prioritize internal promotional calendars and store-specific seasonal trends over macroeconomic indicators to improve the precision of inventory and labor planning.
 
 ## Business Problem:
-Retailers like Walmart face significant challenges in inventory management and labor allocation due to the high volatility of weekly sales across diverse geographic locations. While it is often assumed that macroeconomic indicators, such as fuel prices, unemployment rates, and temperature, drive consumer behavior, this analysis demonstrates that these external factors have minimal predictive impact, accounting for only approximately 2.5% of sales variance.
+Retailers like Walmart face significant challenges in inventory management and labor allocation due to the high volatility of weekly sales across diverse geographic locations. While it is often assumed that macroeconomic indicators, such as fuel prices, unemployment rates, and temperature, drive consumer behavior, this analysis demonstrates that these external factors have minimal predictive power, accounting for only approximately 2.5% of the variance in sales.
 
-The core challenge lies in accurately forecasting extreme demand spikes driven by seasonal cycles and holiday events, which typically see a revenue boost of 7.84%. 
+The core challenge lies in accurately forecasting extreme demand spikes driven by seasonal cycles and holiday events, which typically result in a revenue increase of 7.84%. 
 Traditional forecasting models often underperform during these peak periods, leading to potential stockouts or overstaffing. 
 This project seeks to identify the most effective time-series model to capture these quarterly seasonalities and holiday peaks, enabling data-driven decisions that prioritize internal promotional calendars over unreliable external economic markers.
 
@@ -17,7 +17,7 @@ The technical approach for this analysis followed a structured pipeline from exp
 - Data Preprocessing & EDA: Cleaned and aggregated weekly sales data from 45 distinct Walmart locations, focusing on identifying seasonal trends and the impact of external variables like temperature and fuel prices.
 - Baseline Modeling (Moving Average): Established a performance baseline using a simple Moving Average to understand the underlying mean of the sales data without complex seasonal adjustments.
 - ARIMA (AutoRegressive Integrated Moving Average): Implemented to capture short-term autocorrelations in the data, though it struggled to account for the strong yearly seasonality present in retail cycles.Prophet: Utilized Meta’s Prophet model to decompose the time series into trend, weekly, and yearly seasonality. This provided an automated way to handle holiday effects and missing data points.
-- SARIMA (Seasonal ARIMA): Developed as the primary forecasting tool. By using a grid search (Hyperparameter Tuning) to optimize parameters $(p, d, q) \times (P, D, Q, s)$, this model successfully captured the recurring quarterly and annual patterns that characterize Walmart’s sales performance.
+- SARIMA (Seasonal ARIMA): Developed as the primary forecasting tool. Using a grid search (Hyperparameter Tuning) to optimize the parameters $(p, d, q) \times (P, D, Q, s)$, this model successfully captured the recurring quarterly and annual patterns that characterize Walmart’s sales performance.
 - Model Evaluation: All models were validated using a 13-week test set, with accuracy measured primarily through RMSE (Root Mean Square Error) and MAE (Mean Absolute Error).
 
 ## Skills:
