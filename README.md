@@ -13,20 +13,30 @@ Traditional forecasting models often underperform during these peak periods, lea
 This project seeks to identify the most effective time-series model to capture these quarterly seasonalities and holiday peaks, enabling data-driven decisions that prioritize internal promotional calendars over unreliable external economic markers.
 
 ## Methodology:
-The technical approach for this analysis followed a structured pipeline from exploratory data analysis to advanced time-series modeling:
-- Data Preprocessing & EDA: Cleaned and aggregated weekly sales data from 45 distinct Walmart locations, focusing on identifying seasonal trends and the impact of external variables like temperature and fuel prices.
-- Baseline Modeling (Moving Average): Established a performance baseline using a simple Moving Average to understand the underlying mean of the sales data without complex seasonal adjustments.
-- ARIMA (AutoRegressive Integrated Moving Average): Implemented to capture short-term autocorrelations in the data, though it struggled to account for the strong yearly seasonality present in retail cycles.Prophet: Utilized Meta’s Prophet model to decompose the time series into trend, weekly, and yearly seasonality. This provided an automated way to handle holiday effects and missing data points.
-- SARIMA (Seasonal ARIMA): Developed as the primary forecasting tool. Using a grid search (Hyperparameter Tuning) to optimize the parameters $(p, d, q) \times (P, D, Q, s)$, this model successfully captured the recurring quarterly and annual patterns that characterize Walmart’s sales performance.
-- Model Evaluation: All models were validated using a 13-week test set, with accuracy measured primarily through RMSE (Root Mean Square Error) and MAE (Mean Absolute Error).
+
+This project involved a comprehensive time series analysis of Walmart's weekly sales data to forecast future sales.
+
+1.  **Data Loading and Preprocessing**: Initial data was loaded and preprocessed to convert `Date` columns to datetime objects and handle any missing values. The data was then aggregated to create a unified weekly sales time series across all stores.
+
+2.  **Exploratory Data Analysis (EDA)**: Extensive EDA was performed to understand sales distributions, store-wise performance, and the impact of external factors (Temperature, Fuel Price, CPI, Unemployment) and holidays on weekly sales. Time series decomposition and stationarity tests (ADF test and ACF/PACF plots) were conducted to identify underlying trends and seasonality.
+
+3.  **Feature Engineering**: For advanced models, new time-series features were engineered, including lagged sales, rolling mean and standard deviation, and Fourier series terms to capture seasonality.
+
+4.  **Model Selection and Training**: Several forecasting models were implemented and evaluated:
+    *   **Baseline Moving Average (MA)**: A simple 4-week moving average served as a benchmark.
+    *   **ARIMA (Autoregressive Integrated Moving Average)**: A traditional time series model was applied to capture short-term dependencies.
+    *   **SARIMA (Seasonal ARIMA)**: Optimized using a grid search, this model accounted for seasonality.
+    *   **Prophet**: Facebook's forecasting tool was used for its robustness with trends and multiple seasonality.
+    *   **XGBoost (Extreme Gradient Boosting)**: A powerful machine learning model trained on engineered features to capture complex non-linear relationships.
+
+5.  **Model Evaluation**: All models were evaluated on a dedicated test set (last 13 weeks of data) using key metrics such as Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and Mean Absolute Percentage Error (MAPE). Performance was compared against the baseline, and the best-performing model was identified.
 
 ## Skills:
-- Programming & Data Manipulation: Advanced use of Python for data cleaning, preprocessing, and exploratory data analysis (EDA).
-- Time-Series Modeling: Implementation of diverse forecasting architectures, including ARIMA, SARIMA, Prophet, and XGBoost, to capture complex seasonality and trends.
-- Statistical Analysis: Utilization of Statsmodels for rigorous statistical testing and Scikit-learn for model evaluation metrics like RMSE and MAE.
-- Hyperparameter Optimization: Expertise in performing Grid Search to tune model parameters $(p, d, q) \times (P, D, Q, s)$ for maximum predictive accuracy.
-- Business Intelligence & Strategy: Translating complex data findings into actionable insights, such as Holiday Overlays and store-specific inventory buffering.
-- Data Visualization: Use of Matplotlib to visualize insights.
+
+*   **Programming Languages**: Python
+*   **Libraries**: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Statsmodels, Prophet, XGBoost
+*   **Methodologies**: Time Series Analysis, Exploratory Data Analysis (EDA), Feature Engineering, Model Training & Evaluation, Statistical Modeling (ARIMA, SARIMA), Machine Learning (XGBoost)
+*   **Tools**: Jupyter Notebook/Google Colab
 
 ## Results:
 
@@ -65,10 +75,10 @@ The technical approach for this analysis followed a structured pipeline from exp
 **Quarterly Planning Cycles:** Utilize forecasts for mid-term (13-week) labor and inventory planning to align with established quarterly seasonal cycles.
 
 ## Next Steps:
-- Integrate Store-Specific Multipliers: Expand the "Holiday Overlay" logic to include the top 5 most volatile stores (Stores 20, 4, 14, 13, and 2), applying customized multipliers to
+- **Integrate Store-Specific Multipliers:** Expand the "Holiday Overlay" logic to include the top 5 most volatile stores (Stores 20, 4, 14, 13, and 2), applying customized multipliers to
   account for their higher-than-average seasonal spikes.
-- Feature Engineering for Promotional Data: Incorporate internal Walmart promotional calendars (Markdowns) into the model to see if it improves accuracy during extreme holiday windows.
-- Deployment of Automated Alerts: Develop a monitoring script that flags significant deviations between the forecast and actual sales in real-time, allowing for rapid inventory
+- **Feature Engineering for Promotional Data:** Incorporate internal Walmart promotional calendars (Markdowns) into the model to see if it improves accuracy during extreme holiday windows.
+- **Deployment of Automated Alerts:** Develop a monitoring script that flags significant deviations between the forecast and actual sales in real-time, allowing for rapid inventory
   adjustments.
-- Long-Term Demand Planning: Use the model to run "what-if" scenarios regarding future labor requirements based on predicted seasonal volume surges across different store tiers.
-- Periodic Model Retraining: Establish a quarterly retraining schedule to ensure the parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
+- **Long-Term Demand Planning:** Use the model to run "what-if" scenarios regarding future labor requirements based on predicted seasonal volume surges across different store tiers.
+- **Periodic Model Retraining:** Establish a quarterly retraining schedule to ensure the parameters adapt to evolving consumer trends and potential shifts in seasonal timing.
