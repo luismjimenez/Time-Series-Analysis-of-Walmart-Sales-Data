@@ -37,7 +37,7 @@ Its performance highlights include:
  Identified Constraints: Despite its accuracy, the model—like others tested—tended to underestimate the extreme "peak-of-peak" demand during major holiday windows like Thanksgiving and 
  Christmas.
 
-![SARIMA Performance](sarima_performance.png)
+![Model Performance](Walmart_Sales_Forecast_Model_Performance.png)
 *Figure 1: SARIMA Forecast vs. Actual Sales*
 
 ![Macroeconomic Variance Impact](variance_impact.png)
